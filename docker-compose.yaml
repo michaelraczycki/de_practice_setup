@@ -21,6 +21,7 @@ services:
       PGADMIN_DEFAULT_PASSWORD: root
     volumes:
       - pgadmin_data:/var/lib/pgadmin
+      - /Users/michalraczycki/Documents/DataEngineering_practice:/var/lib/pgadmin/storage/admin_admin.com # map local directory to pgadmin container
     ports:
       - "5050:80"
 volumes:
