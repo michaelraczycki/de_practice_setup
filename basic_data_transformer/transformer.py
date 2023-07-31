@@ -6,15 +6,29 @@ from glob import glob
 
 
 
-def get_column_names(schemas: TextIO, dataset_name: str, sorting_key='column_name'):
+def get_column_names(schemas: TextIO, dataset_name: str, sorting_key: str='column_name') ->list:
+    '''
+    Returns a list of column names for a given dataset name
+    Parameters:
+    -----------
+    schemas: TextIO
+        json file containing the column names for each dataset
+    dataset_name: string
+        name of the dataset
+    sorting_key: string
+        key to sort the columns by
+    Return:
+    -------
+        list of column names
+    '''
     column_details = schemas[dataset_name]
     columns = sorted(column_details, key=lambda x: x[sorting_key])
     return [col['column_name'] for col in columns]
 
-def get_dataset_name(path: str):
+def get_dataset_name(path: str)-> str:
     return path.split('/')[4]
 
-def load_dfs_from_csv(path: str, src_paths: str):
+def load_dfs_from_csv(path: str, src_paths: str) -> dict:
     src_paths = glob(src_paths)
     schemas = json.load(open(path, 'r'))
     dfs = {}
@@ -25,7 +39,7 @@ def load_dfs_from_csv(path: str, src_paths: str):
 
     return dfs
 
-def save_to_json(datasets: dict, path: str):
+def save_to_json(datasets: dict, path: str) -> None:
     for key, value in datasets.items():
         value.to_json(path + key + '.json', orient='records')
 
