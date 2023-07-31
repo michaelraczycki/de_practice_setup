@@ -1,7 +1,6 @@
 import json
 import pandas as pd
 from typing import TextIO
-from db.db_connector import DatabaseConnector
 from glob import glob
 
 
@@ -26,19 +25,9 @@ def load_dfs_from_csv(path: str, src_paths: str):
 
     return dfs
 
+def save_to_json(datasets: dict, path: str):
+    for key, value in datasets.items():
+        value.to_json(path + key + '.json', orient='records')
+
 if __name__ == '__main__':
-    print(load_dfs_from_csv('../data/retail_data/schemas.json', '../data/retail_data/CSV/*/*'))
-
-
-
-
-
-
-
-
-
-# db = DatabaseConnector('root', 'root', 'localhost', '5432', 'postgres')
-# session = db.get_session()
-
-
-# session.close()
+    save_to_json(load_dfs_from_csv('../data/retail_data/schemas.json', '../data/retail_data/CSV/*/*'), '../data/transformed_datafiles/JSON/')
