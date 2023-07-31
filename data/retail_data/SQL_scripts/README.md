@@ -1,0 +1,2 @@
+This folder contains the files necesary for creating a set of db tables that can be used for SQL practice. In my case I've decided to go with
+dockerised version of the PostgreSQL so if you wish to have the same setup, you need to adjust the shared volume line in docker-compose.yml in order for your pgadmin to see the .sql files and enable you to select and execute them.
